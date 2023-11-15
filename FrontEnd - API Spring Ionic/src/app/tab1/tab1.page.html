@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Bem-vindo!</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card class="login-card">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label position="stacked">Login</ion-label>
+        <ion-input type="text" placeholder="Seu login" name="login" [(ngModel)]="loginData.login"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Senha</ion-label>
+        <ion-input type="password" placeholder="Sua senha" name="senha" [(ngModel)]="loginData.senha"></ion-input>
+      </ion-item>
+
+      <ion-button class="login-button" expand="full" (click)="fazerLogin()">Entrar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

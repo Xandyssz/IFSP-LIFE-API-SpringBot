@@ -1,0 +1,61 @@
+<ion-menu side="end" contentId="menu-produtos" menuId="menu-produtos">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item (click)="abrirModalMeuPerfil()">Meu Perfil</ion-item>
+      <ion-item (click)="sair()">Sair</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="menu-produtos"></ion-router-outlet>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-title>
+        Lista de Produtos
+      </ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" menu="menu-produtos"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input type="number" [(ngModel)]="codigo" label="Código do Produto"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="getProdutoCodigo()" expand="full">Pesquisar por código</ion-button>
+      <ion-button (click)="getProdutos()" expand="full">Listar Todos</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 2</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1"><strong>Código</strong></ion-col>
+      <ion-col size="7"><strong>Nome do Produto</strong></ion-col>
+      <ion-col size="2"><strong>Categoria</strong></ion-col>
+      <ion-col size="2"><strong>Quantidade</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let produto of produtos">
+      <ion-col size="1"><strong>{{produto.codigo_produto}}</strong></ion-col>
+      <ion-col size="7"><strong>{{produto.nome}}</strong></ion-col>
+      <ion-col size="2"><strong>{{produto.categoria}}</strong></ion-col>
+      <ion-col size="2"><strong>{{produto.quantidade}}</strong></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

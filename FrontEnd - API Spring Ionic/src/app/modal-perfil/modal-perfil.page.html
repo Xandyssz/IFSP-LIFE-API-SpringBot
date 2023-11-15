@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Detalhes do Funcionário
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fecharModal()">Fechar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="stacked">Nome</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.nome}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">CPF</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.cpf}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Telefone</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.telefone}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="8">
+        <ion-item>
+          <ion-label position="stacked">Endereço</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.endereco}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-item>
+          <ion-label position="stacked">CEP</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.cep}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Cidade</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.cidade}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">ESTADO</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.uf}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Nível de Acesso</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.nivelacesso}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Salário</ion-label>
+          <ion-input value="{{apiService.funcionarioLogado?.salario}}" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

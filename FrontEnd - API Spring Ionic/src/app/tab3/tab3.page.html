@@ -1,0 +1,61 @@
+<ion-menu side="end" contentId="menu-fornecedores" menuId="menu-fornecedores">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item (click)="abrirModalMeuPerfil()">Meu Perfil</ion-item>
+      <ion-item (click)="sair()">Sair</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="menu-fornecedores"></ion-router-outlet>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-title>
+        Lista de Fornecedores
+      </ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" menu="menu-fornecedores"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input type="number" [(ngModel)]="codigo" label="Código do Fornecedor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="getFornecedoresCodigo()" expand="full">Pesquisar por código</ion-button>
+      <ion-button (click)="getFornecedores()" expand="full">Listar Todos</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 2</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="1"><strong>Código</strong></ion-col>
+      <ion-col size="7"><strong>Nome do Fornecedor(a)</strong></ion-col>
+      <ion-col size="2"><strong>Responsável</strong></ion-col>
+      <ion-col size="2"><strong>Telefone</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let fornecedor of fornecedores">
+      <ion-col size="1"><strong>{{fornecedor.codigo_fornecedor}}</strong></ion-col>
+      <ion-col size="7"><strong>{{fornecedor.nome}}</strong></ion-col>
+      <ion-col size="2"><strong>{{fornecedor.responsavel}}</strong></ion-col>
+      <ion-col size="2"><strong>{{fornecedor.telefone}}</strong></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

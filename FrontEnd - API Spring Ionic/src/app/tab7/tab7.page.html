@@ -1,0 +1,119 @@
+<ion-menu side="end" contentId="menu-venda" menuId="menu-venda">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item (click)="abrirModalMeuPerfil()">Meu Perfil</ion-item>
+      <ion-item (click)="sair()">Sair</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="menu-venda"></ion-router-outlet>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-title>
+        Lista de Vendas
+      </ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" menu="menu-venda"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input type="number" [(ngModel)]="codigo" label="Código da Venda"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="getVendasCodigo()">Pesquisar por código</ion-button>
+      <ion-button (click)="getVendas()" expand="full">Listar Todos</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngFor="let venda of vendas">
+    <ion-item (click)="toggleVendas(venda)">
+      Venda {{ venda.codigo_venda }}
+      <ion-icon slot="end" [name]="getIconName(venda)"></ion-icon>
+    </ion-item>
+
+    <ion-list *ngIf="venda.expandido">
+      <ion-item (click)="toggleDetalhes('dadosVendas', venda)">
+        <ion-label><strong>Dados da Venda</strong></ion-label>
+        <ion-icon slot="end" [name]="getIconNameDetalhes('dadosVendas', venda)"></ion-icon>
+      </ion-item>
+      <div class="ion-padding" *ngIf="venda.detalhes.expandidoDadosVenda">
+        <ion-list>
+          <ion-item><ion-label>Código:</ion-label>{{ venda.codigo_venda }}</ion-item>
+          <ion-item><ion-label>Data Venda:</ion-label>{{ venda.data_venda | date }}</ion-item>
+          <ion-item><ion-label>Forma de Pagamento:</ion-label>{{ venda.forma_pagamento }}</ion-item>
+          <ion-item><ion-label>Valor Total:</ion-label>{{ venda.valor_venda | currency }}</ion-item>
+        </ion-list>
+      </div>
+
+      <ion-item (click)="toggleDetalhes('dadosCaixa', venda)">
+        <ion-label><strong>Dados do Caixa</strong></ion-label>
+        <ion-icon slot="end" [name]="getIconNameDetalhes('dadosCaixa', venda)"></ion-icon>
+      </ion-item>
+      <div class="ion-padding" *ngIf="venda.detalhes.expandidoDadosCaixa">
+        <ion-list>
+          <ion-item><ion-label>Código:</ion-label> {{ venda.codigo_caixa.codigo_caixa }}</ion-item>
+          <ion-item><ion-label>Status:</ion-label> {{ venda.codigo_caixa.status }}</ion-item>
+          <ion-item><ion-label>Data de Abertura:</ion-label> {{ venda.codigo_caixa.data_abertura | date }}</ion-item>
+          <ion-item><ion-label>Horário de Abertura:</ion-label> {{ venda.codigo_caixa.horario_abertura}}</ion-item>
+          <ion-item><ion-label>Data de Fechamento:</ion-label>{{ venda.codigo_caixa.data_fechamento ? (venda.codigo_caixa.data_fechamento | date) : 'O Caixa Não Foi Fechado!!' }}</ion-item>          <ion-item><ion-label>Horário de Fechamento:</ion-label> {{ venda.codigo_caixa.horario_fechamento ? venda.codigo_caixa.horario_fechamento : 'O Caixa Não Foi Fechado!!' }}</ion-item>
+          <ion-item><ion-label>Total de Entradas:</ion-label> {{ venda.codigo_caixa.total_entradas | currency }}</ion-item>
+          <ion-item><ion-label>Total de Saídas:</ion-label> {{ venda.codigo_caixa.total_saidas | currency }}</ion-item>
+          <ion-item><ion-label>Valor de Abertura:</ion-label> {{ venda.codigo_caixa.valor_abertura | currency }}</ion-item>
+          <ion-item><ion-label>Valor de Fechamento:</ion-label> {{ venda.codigo_caixa.valor_fechamento | currency }}</ion-item>
+          <ion-item><ion-label>Total de Movimentação:</ion-label> {{ venda.codigo_caixa.totalMovimentacao | currency }}</ion-item>
+          <ion-item><ion-label>Suplementação:</ion-label> {{ venda.codigo_caixa.suplementacao | currency }}</ion-item>
+          <ion-item><ion-label>Vendas por Caixa:</ion-label> {{ venda.codigo_caixa.vendasPorCaixa | currency }}</ion-item>
+          <ion-item><ion-label>Sangria:</ion-label> {{ venda.codigo_caixa.sangria | currency }}</ion-item>
+        </ion-list>
+      </div>
+
+      <ion-item (click)="toggleDetalhes('dadosProdutos', venda)">
+        <ion-label><strong>Dados do Produto</strong></ion-label>
+        <ion-icon slot="end" [name]="getIconNameDetalhes('dadosProdutos', venda)"></ion-icon>
+      </ion-item>
+      <div class="ion-padding" *ngIf="venda.detalhes.expandidoDadosProdutos">
+        <ion-list *ngFor="let produto of venda.ProdutovendaList">
+          <ion-item><ion-label><strong>Código do Produto: </strong></ion-label>{{ produto.codigo_produto.codigo_produto }}</ion-item>
+          <ion-item><ion-label><strong>Categoria: </strong></ion-label>{{ produto.codigo_produto.categoria }}</ion-item>
+          <ion-item><ion-label><strong>Data de Fabricação: </strong></ion-label> {{ produto.codigo_produto.data_fabricacao | date }}</ion-item>
+          <ion-item><ion-label><strong>Data de Validade: </strong></ion-label> {{ produto.codigo_produto.data_validade | date }}</ion-item>
+          <ion-item><ion-label><strong>Descrição: </strong></ion-label> {{ produto.codigo_produto.descricao }}</ion-item>
+          <ion-item><ion-label><strong>Dosagem: </strong></ion-label>{{ produto.codigo_produto.dosagem ? produto.codigo_produto.dosagem : 'O Produto não Possui Dosagem!!' }}</ion-item>
+          <ion-item><ion-label><strong>Lote: </strong></ion-label> {{ produto.codigo_produto.lote }}</ion-item>
+          <ion-item><ion-label><strong>Nome: </strong></ion-label> {{ produto.codigo_produto.nome }}</ion-item>
+          <ion-item><ion-label><strong>Quantidade: </strong></ion-label> {{ produto.codigo_produto.quantidade }}</ion-item>
+          <ion-item><ion-label><strong>SubTotal: </strong></ion-label> {{ produto.codigo_produto.valor | currency }}</ion-item>
+        </ion-list>
+      </div>
+
+      <ion-item (click)="toggleDetalhes('dadosConvenios', venda)">
+        <ion-label><strong>Dados dos Convênio</strong></ion-label>
+        <ion-icon slot="end" [name]="getIconNameDetalhes('dadosConvenios', venda)"></ion-icon>
+      </ion-item>
+      <div class="ion-padding" *ngIf="venda.detalhes.expandidoDadosConvenio">
+        <ion-list>
+          <ion-item><ion-label>Codigo: </ion-label> {{venda.codigo_convenio.codigo_convenio}}  </ion-item>
+          <ion-item><ion-label>CNPJ: </ion-label> {{venda.codigo_convenio.cnpj}}  </ion-item>
+          <ion-item><ion-label>Desconto: </ion-label>   {{ venda.codigo_convenio.desconto + "%" }}</ion-item>
+          <ion-item><ion-label>Email: </ion-label> {{venda.codigo_convenio.email}}  </ion-item>
+          <ion-item><ion-label>Endereço: </ion-label> {{venda.codigo_convenio.endereco}}  </ion-item>
+          <ion-item><ion-label>Nome: </ion-label> {{venda.codigo_convenio.nome}}  </ion-item>
+          <ion-item><ion-label>Telefone </ion-label> {{venda.codigo_convenio.telefone}}  </ion-item>
+        </ion-list>
+      </div>
+    </ion-list>
+  </ion-list>
+</ion-content>
